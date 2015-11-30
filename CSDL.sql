@@ -1,0 +1,123 @@
+-- MySQL dump 10.13  Distrib 5.5.46, for debian-linux-gnu (x86_64)
+--
+-- Host: 127.0.0.1    Database: qly_nhasach
+-- ------------------------------------------------------
+-- Server version	5.5.46-0ubuntu0.14.04.2
+
+DROP TABLE IF EXISTS `chitiethoadon`;
+
+CREATE TABLE `chitiethoadon` (
+  `MAHOADON` int(11) NOT NULL DEFAULT '0',
+  `MASACH` char(13) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+  `SOLUONG` int(11) NOT NULL,
+  `MUCGIAMGIA` int(11) DEFAULT NULL,
+  PRIMARY KEY (`MAHOADON`,`MASACH`),
+  KEY `FK_CHITIETHOADON_MASACH` (`MASACH`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+DROP TABLE IF EXISTS `hoadon`;
+
+CREATE TABLE `hoadon` (
+  `MAHOADON` int(11) NOT NULL DEFAULT '0',
+  `TENKHACHHANG` varchar(50) CHARACTER SET utf8 DEFAULT NULL,
+  `NGAYLAP` date DEFAULT NULL,
+  `TONGTIEN` decimal(10,0) DEFAULT NULL,
+  PRIMARY KEY (`MAHOADON`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+
+DROP TABLE IF EXISTS `kho`;
+
+CREATE TABLE `kho` (
+  `MASACH` char(13) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+  `TONGSOLUONG` int(11) DEFAULT '0',
+  `SOLUONGCON` int(11) DEFAULT '0',
+  PRIMARY KEY (`MASACH`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+DROP TABLE IF EXISTS `linhvuc`;
+
+CREATE TABLE `linhvuc` (
+  `MALINHVUC` char(2) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+  `TENLINHVUC` varchar(30) CHARACTER SET utf8 DEFAULT NULL,
+  PRIMARY KEY (`MALINHVUC`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+DROP TABLE IF EXISTS `loaisach`;
+
+CREATE TABLE `loaisach` (
+  `MALOAISACH` char(2) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+  `TENLOAISACH` varchar(20) CHARACTER SET utf8 DEFAULT NULL,
+  PRIMARY KEY (`MALOAISACH`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+DROP TABLE IF EXISTS `nhatkinhapsach`;
+
+CREATE TABLE `nhatkinhapsach` (
+  `STT` int(11) NOT NULL AUTO_INCREMENT,
+  `MASACH` char(13) COLLATE utf8_unicode_ci NOT NULL,
+  `SOLUONG` int(11) NOT NULL,
+  `NGAYNHAP` date DEFAULT NULL,
+  PRIMARY KEY (`STT`),
+  KEY `FK_NHATKINHAPSACH_MASACH` (`MASACH`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+DROP TABLE IF EXISTS `sach`;
+
+CREATE TABLE `sach` (
+  `MASACH` char(13) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+  `TENSACH` varchar(100) CHARACTER SET utf8 NOT NULL,
+  `MATACGIA` char(4) COLLATE utf8_unicode_ci NOT NULL,
+  `MALOAISACH` char(2) COLLATE utf8_unicode_ci NOT NULL,
+  `MALINHVUC` char(4) COLLATE utf8_unicode_ci NOT NULL,
+  `GIAMUA` int(11) NOT NULL,
+  PRIMARY KEY (`MASACH`),
+  KEY `FK_SACH_MATACGIA` (`MATACGIA`),
+  KEY `FK_SACH_MALOAISACH` (`MALOAISACH`),
+  KEY `FK_SACH_MALINHVUC` (`MALINHVUC`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+DROP TABLE IF EXISTS `sachkhuyenmai`;
+
+CREATE TABLE `sachkhuyenmai` (
+  `MASACH` char(13) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+  `MUCGIAMGIA` int(11) NOT NULL,
+  PRIMARY KEY (`MASACH`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+DROP TABLE IF EXISTS `tacgia`;
+
+CREATE TABLE `tacgia` (
+  `MATACGIA` char(4) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+  `TENTACGIA` varchar(40) CHARACTER SET utf8 NOT NULL,
+  `NAMSINH` char(4) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `NAMMAT` char(4) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `QUEQUAN` varchar(20) CHARACTER SET utf8 DEFAULT NULL,
+  PRIMARY KEY (`MATACGIA`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+DROP TABLE IF EXISTS `taikhoan`;
+
+CREATE TABLE `taikhoan` (
+  `USERNAME` varchar(20) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+  `PASSWORD` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `TEN` varchar(50) CHARACTER SET utf8 NOT NULL,
+  `ID` char(8) COLLATE utf8_unicode_ci NOT NULL,
+  `NGAYLAMVIEC` date DEFAULT NULL,
+  `CHUCVU` varchar(50) CHARACTER SET utf8 DEFAULT NULL,
+  PRIMARY KEY (`USERNAME`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+INSERT INTO `taikhoan` VALUES ('admin','admin','asdad','123213','2013-12-19','aaa');
+
+
+DROP TABLE IF EXISTS `thongtinxuatban`;
+
+CREATE TABLE `thongtinxuatban` (
+  `MASACH` char(13) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+  `LANTAIBAN` char(11) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `NAMXUATBAN` char(4) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `NHAXUATBAN` varchar(50) CHARACTER SET utf8 DEFAULT NULL,
+  `GIABIA` int(11) NOT NULL,
+  PRIMARY KEY (`MASACH`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
